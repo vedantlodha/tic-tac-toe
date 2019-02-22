@@ -20,6 +20,15 @@ void printBoard(char board[3][3])
 			std::cout << "- - -" << std::endl;
 	}
 }
+bool terminalPosition(char board[3][3]){
+	for(int i = 0; i < 3; i++){
+		for(int j = 0; j < 3; j++){
+			if(board[i][j] == ' ')
+			return false;
+		}
+	}
+	return true;
+}
 int checkBoard(char board[3][3]){
 	for (int i = 0; i < 3; i++){
 		if (((board[i][0] == board[i][1]) && (board[i][1] == board[i][2]) && board [i] [0] != ' ') || ((board[0][i] == board[1][i]) && (board[1][i] == board[2][i])) && board[1][i] != ' '){
@@ -40,7 +49,6 @@ void nextTurn(int *player1, int *player2)
 }
 void game(char board[3][3], int player1, int player2)
 {
-	int noOfMoves = 0;
 	while (1)
 	{
 		int gameVal = 0;
@@ -52,7 +60,7 @@ void game(char board[3][3], int player1, int player2)
 		int m, n;
 		while (1)
 		{
-			if (noOfMoves == 9)
+			if (terminalPosition(board))
 			{
 				std::cout << "Its a tie";
 				return;
@@ -71,14 +79,12 @@ void game(char board[3][3], int player1, int player2)
 			else
 			{
 				board[m][n] = movechar;
-				noOfMoves++;
+				//noOfMoves++;
 
 				break;
 			}
 		}
-		if(noOfMoves > 4){
-			gameVal = checkBoard(board);
-		}
+		gameVal = checkBoard(board);
 		if (gameVal == 1)
 		{
 			std::cout<<"\n\n\n";
